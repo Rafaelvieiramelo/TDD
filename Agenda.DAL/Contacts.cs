@@ -1,6 +1,7 @@
 ﻿using System.Data.SQLite;
 using System.Data;
 using Agenda.Domain;
+using Microsoft.Extensions.Configuration;
 
 namespace Agenda.DAL
 {
@@ -11,7 +12,13 @@ namespace Agenda.DAL
 
         public Contacts()
         {
-            _strCon = "Data Source=C:\\Users\\rafael.melo\\Documents\\Projetos\\solucao-exemplo\\Agenda.db;";
+            var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+            _strCon = configuration.GetConnectionString("con");
+
             _conn = new(_strCon);
         }
 
