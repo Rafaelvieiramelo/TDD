@@ -24,6 +24,7 @@ namespace Agenda.DAL
 
         public async Task<string> InsertContact(contact contact)
         {
+            //teste pipeline
             var contactExisting = GetContactByCpf(contact);
 
             if (contactExisting != null)
