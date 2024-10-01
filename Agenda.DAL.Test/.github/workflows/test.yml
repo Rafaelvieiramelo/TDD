@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -24,7 +23,7 @@ jobs:
       run: dotnet restore ./Agenda.sln
 
     - name: Build project
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build ./Agenda.sln --configuration Release --no-restore
 
     - name: Run tests
-      run: dotnet test --configuration Release --no-build --verbosity norma
+      run: dotnet test ./Agenda.sln --configuration Release --no-build --verbosity normal
