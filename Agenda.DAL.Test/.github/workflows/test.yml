@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -20,10 +21,10 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore ./Agenda.sln
+      run: dotnet restore Agenda.sln
 
     - name: Build project
-      run: dotnet build ./Agenda.sln --configuration Release --no-restore
+      run: dotnet build Agenda.sln --configuration Release --no-restore
 
     - name: Run tests
-      run: dotnet test ./Agenda.sln --configuration Release --no-build --verbosity normal
+      run: dotnet test Agenda.sln --configuration Release --no-build --verbosity normal
