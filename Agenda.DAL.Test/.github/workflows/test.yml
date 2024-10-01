@@ -20,6 +20,12 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
+    - name: List files for debugging
+      run: ls -R
+
+    - name: Clear NuGet Cache
+      run: dotnet nuget locals all --clear
+
     - name: Restore dependencies
       run: dotnet restore Agenda.sln
 
