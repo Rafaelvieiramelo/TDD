@@ -8,12 +8,13 @@ namespace Agenda.DAL.Test
     [TestFixture]
     public class ContatctsTest
     {
-        Contacts _contacts;
+        InMemoryContacts _contacts;
 
         [SetUp]
         public void Setup()
         {
-            _contacts = new Contacts();
+            var inMemoryRepository = new InMemoryContacts();
+            _contacts = new InMemoryContacts();
         }
 
         [Test]
@@ -21,7 +22,6 @@ namespace Agenda.DAL.Test
         {
             var contatct = new contact()
             {
-
                 Nome = "Rafael Melo",
                 Cpf = "12345678901",
                 Telefone = "11999999999"
@@ -37,13 +37,19 @@ namespace Agenda.DAL.Test
         {
             var contact = new contact()
             {   
-                Cpf = "37080604826",
-                Nome = "Rafael Vieira de Melo"
+                Cpf = "12345678901",
+                Nome = "Rafael Melo",
+                Telefone = "11999999999"
             };
 
+            _contacts.InsertContact(contact);
+
             var contactReturn = _contacts.GetContactByCpf(contact);
+
+            ClassicAssert.NotNull(contactReturn);
             ClassicAssert.AreEqual(contact.Cpf, contactReturn.Cpf);
             ClassicAssert.AreEqual(contact.Nome, contactReturn.Nome);
+            ClassicAssert.AreEqual(contact.Telefone, contactReturn.Telefone);
         }
                 
         [Test]

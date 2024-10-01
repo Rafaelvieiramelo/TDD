@@ -16,7 +16,7 @@ namespace Agenda.Api.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "Contact")]
+        [HttpGet("GetByCpf")]
         public async Task<IActionResult> GetByCpf(string cpf)
         {
             var contato = new contact
@@ -35,7 +35,7 @@ namespace Agenda.Api.Controllers
             }
         }
 
-        [HttpPost(Name = "NewContact")]
+        [HttpPost("InsertContact")]
         public async Task<IActionResult> InsertContact(contact contact)
         {
             try
@@ -49,7 +49,7 @@ namespace Agenda.Api.Controllers
             }
         }
 
-        [HttpGet(Name = "Contacts")]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
             try
