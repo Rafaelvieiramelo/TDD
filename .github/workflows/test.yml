@@ -36,6 +36,7 @@ jobs:
       run: dotnet build ./Agenda.sln --configuration Release --no-restore
 
     - name: Run tests
+       shell: bash
        run: dotnet test ./Agenda.DAL.Test/Agenda.DAL.Test.csproj --no-restore --no-build --configuration Release --logger "trx;LogFileName=test_results.trx"
 
     - name: Validate test results
