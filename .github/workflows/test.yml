@@ -30,10 +30,10 @@ jobs:
       run: dotnet nuget locals all --clear
 
     - name: Restore dependencies
-      run: dotnet restore path/to/Agenda.sln
+      run: dotnet restore ./Agenda.sln
 
     - name: Build project
-      run: dotnet build path/to/Agenda.sln --configuration Release --no-restore
+      run: dotnet build ./Agenda.sln --configuration Release --no-restore
 
     - name: Run tests
-      run: dotnet test path/to/Agenda.sln --configuration Release --no-build --verbosity normal
+      run: dotnet test ./Agenda.sln --configuration Release --no-build --verbosity normal
