@@ -37,3 +37,10 @@ jobs:
 
     - name: Run tests
        run: dotnet test ./Agenda.DAL.Test/Agenda.DAL.Test.csproj --no-restore --no-build --configuration Release --logger "trx;LogFileName=test_results.trx"
+
+    - name: Validate test results
+       run: |
+         if [ $? -ne 0 ]; then
+           echo "Test run failed. Exiting..."
+         exit 1
+    fi       
