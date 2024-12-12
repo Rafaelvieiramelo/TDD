@@ -17,10 +17,10 @@ jobs:
     runs-on: windows-latest  # MSBuild e aplicações desktop precisam de ambiente Windows.
 
     env:
-      Solution_Name: Agenda.sln                         # Nome real do arquivo de solução na raiz do repositório.
-      Test_Project_Path: Agenda.DAL.Tests\Agenda.DAL.Tests.csproj # Caminho para o projeto de testes (ajuste para seu projeto real).
-      Wap_Project_Directory: Agenda.Package             # Nome do diretório relativo ao projeto WAP (ajuste para seu caso real).
-      Wap_Project_Path: Agenda.Package\Agenda.Package.wapproj # Caminho para o arquivo WAP (ajuste para seu projeto real).
+      Solution_Name: .\Agenda.sln                         # Nome real do arquivo de solução na raiz do repositório.
+      Test_Project_Path: .\Agenda.DAL.Tests\Agenda.DAL.Tests.csproj # Caminho para o projeto de testes (ajuste para seu projeto real).
+      Wap_Project_Directory: .\Agenda.Package             # Nome do diretório relativo ao projeto WAP (ajuste para seu caso real).
+      Wap_Project_Path: .\Agenda.Package\Agenda.Package.wapproj # Caminho para o arquivo WAP (ajuste para seu projeto real).
 
     steps:
     - name: Checkout
