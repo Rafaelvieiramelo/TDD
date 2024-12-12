@@ -18,9 +18,9 @@ jobs:
 
     env:
       Solution_Name: .\Agenda.sln                         # Nome real do arquivo de solução na raiz do repositório.
-      Test_Project_Path: .\Agenda.DAL.Test\Agenda.DAL.Test.csproj # Caminho para o projeto de testes (ajuste para seu projeto real).
-      Wap_Project_Directory: .\Agenda.Package             # Nome do diretório relativo ao projeto WAP (ajuste para seu caso real).
-      Wap_Project_Path: .\Agenda.Package\Agenda.Package.wapproj # Caminho para o arquivo WAP (ajuste para seu projeto real).
+      Test_Project_Path: .\Agenda.DAL.Test\Agenda.DAL.Test.csproj # Caminho para o projeto de testes.
+      Wap_Project_Directory: .\Agenda.Package             # Nome do diretório relativo ao projeto WAP.
+      Wap_Project_Path: .\Agenda.Package\Agenda.Package.wapproj # Caminho para o arquivo WAP.
 
     steps:
     - name: Checkout
@@ -38,39 +38,11 @@ jobs:
     - name: Configurar MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    # Executar testes de unidade
-    - name: Executar testes de unidade
-      run: dotnet test ${{ env.Test_Project_Path }} --configuration ${{ matrix.configuration }}
-
-    # Restaurar o aplicativo para preencher o diretório obj com identificadores de tempo de execução
-    - name: Restaurar o aplicativo
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-      env:
-        Configuration: ${{ matrix.configuration }}
-
-    # Decodificar o certificado PFX e salvar o arquivo
-    - name: Decodificar o certificado PFX
+    # Garantir que o diretório Wap_Project_Directory existe
+    - name: Criar diretório WAP se não existir
       run: |
-        $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.Base64_Encoded_Pfx }}")
-        $certificatePath = Join-Path -Path $env:Wap_Project_Directory -ChildPath GitHubActionsWorkflow.pfx
-        [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
+        if (-Not (Test-Path $env:Wap_Project_Directory)) {
+          mkdir $env:Wap_Project_Directory
+        }
 
-    # Criar o pacote de aplicativo
-    - name: Criar o pacote de aplicativo
-      run: msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration /p:UapAppxPackageBuildMode=$env:Appx_Package_Build_Mode /p:AppxBundle=$env:Appx_Bundle /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
-      env:
-        Appx_Bundle: Always
-        Appx_Bundle_Platforms: x86|x64
-        Appx_Package_Build_Mode: StoreUpload
-        Configuration: ${{ matrix.configuration }}
-
-    # Remover o certificado PFX
-    - name: Remover o certificado PFX
-      run: Remove-Item -path $env:Wap_Project_Directory\GitHubActionsWorkflow.pfx
-
-    # Upload do pacote MSIX
-    - name: Upload dos artefatos de build
-      uses: actions/upload-artifact@v3
-      with:
-        name: MSIX Package
-        path: ${{ env.Wap_Project_Directory }}\AppPackages
+    # Executar testes de un
