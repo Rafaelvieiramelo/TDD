@@ -37,3 +37,4 @@ jobs:
 
     - name: Run tests
       run: dotnet test .\Agenda.DAL.Test\Agenda.DAL.Test.csproj --no-restore --no-build --configuration Release --verbosity normal
+      continue-on-error: false
