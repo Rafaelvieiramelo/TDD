@@ -8,29 +8,32 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - name: Check out repository
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
 
     - name: Setup .NET 8
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.x
 
-    - name: List files for debugging
-      run: ls -R
+    - name: Debug file paths
+      run: |
+        pwd
+        ls -R
 
     - name: Clear NuGet Cache
       run: dotnet nuget locals all --clear
 
     - name: Restore dependencies
-      run: dotnet restore Agenda.sln
+      run: dotnet restore path/to/Agenda.sln
 
     - name: Build project
-      run: dotnet build Agenda.sln --configuration Release --no-restore
+      run: dotnet build path/to/Agenda.sln --configuration Release --no-restore
 
     - name: Run tests
-      run: dotnet test Agenda.sln --configuration Release --no-build --verbosity normal
+      run: dotnet test path/to/Agenda.sln --configuration Release --no-build --verbosity normal
