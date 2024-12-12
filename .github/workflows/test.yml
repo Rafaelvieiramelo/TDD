@@ -41,6 +41,12 @@ jobs:
     - name: Validate test results
        run: |
          if [ $? -ne 0 ]; then
-           echo "Test run failed. Exiting..."
-         exit 1
-    fi       
+          echo "Test run failed. Exiting..."
+          exit 1
+        fi 
+
+    - name: Upload code coverage result
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./TestResults/*.xml
+        fail_ci_if_error: true        
