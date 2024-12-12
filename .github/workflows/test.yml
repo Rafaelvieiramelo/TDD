@@ -37,7 +37,10 @@ jobs:
 
     - name: Run tests
        shell: bash
-       run: dotnet test ./Agenda.DAL.Test/Agenda.DAL.Test.csproj --no-restore --no-build --configuration Release --logger "trx;LogFileName=test_results.trx"
+       run: dotnet test ./Agenda.DAL.Test/Agenda.DAL.Test.csproj --no-restore --no-build --configuration Release --verbosity detailed --logger "trx;LogFileName=test_results.trx"
+
+    - name: Display test results
+       run: cat ./TestResults/test_results.trx || echo "Test report not found"
 
     - name: Validate test results
        run: |
