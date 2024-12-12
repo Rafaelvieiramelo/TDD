@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Agenda.DAL
 {
-    public class Contacts
+    public class Contacts : IContacts
     {
         protected readonly string _strCon;
         protected readonly SQLiteConnection _conn;
@@ -54,7 +54,8 @@ namespace Agenda.DAL
             var contatoNovo = new contact
             {
                 Nome = sqlDataReader["Nome"].ToString(),
-                Cpf = sqlDataReader["Cpf"].ToString()
+                Cpf = sqlDataReader["Cpf"].ToString(),
+                Telefone = sqlDataReader["Telefone"].ToString()
             };
 
             _conn.Close();
