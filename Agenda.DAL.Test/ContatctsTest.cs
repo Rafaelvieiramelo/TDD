@@ -46,7 +46,7 @@ namespace Agenda.DAL.Test
 
             var contactReturn = _contacts.GetContactByCpf(contact);
 
-            ClassicAssert.NotNull(contactReturn);
+            ClassicAssert.Null(contactReturn);
             ClassicAssert.AreEqual(contact.Cpf, contactReturn.Cpf);
             ClassicAssert.AreEqual(contact.Nome, contactReturn.Nome);
             ClassicAssert.AreEqual(contact.Telefone, contactReturn.Telefone);
